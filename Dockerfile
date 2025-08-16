@@ -1,7 +1,7 @@
 # ------------------------------
 # Android Build Environment
 # ------------------------------
-FROM openjdk:11-jdk-slim
+FROM openjdk:17-jdk-slim
 
 # Install required dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
