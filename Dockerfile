@@ -29,18 +29,12 @@ RUN sdkmanager --install \
     "platforms;android-33" \
     "build-tools;33.0.0"
 
-# Install Gradle
-ENV GRADLE_VERSION=8.7
-RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -O gradle.zip \
-    && unzip gradle.zip -d /opt \
-    && mv /opt/gradle-${GRADLE_VERSION} /opt/gradle \
-    && rm gradle.zip
-ENV PATH=/opt/gradle/bin:$PATH
-
-# Set working directory
+# Copy project files
 WORKDIR /app
+COPY . .
 
-# Default command (can be overridden by docker run)
+# Make gradlew executable
+RUN chmod +x ./gradlew
+
+# Use Gradle Wrapper (defined in gradle-wrapper.properties)
 CMD ["./gradlew", "assembleRelease"]
-
-
